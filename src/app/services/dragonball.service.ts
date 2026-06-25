@@ -7,7 +7,7 @@ import {
   CharacterPayload,
 } from '../interfaces/dragonball.interface';
 import { Observable } from 'rxjs';
-import { environment } from '../../environments/environment.development';
+import { environment } from '@env/environment.development';
 
 @Injectable({ providedIn: 'root' })
 export class DragonBallService {
@@ -19,6 +19,9 @@ export class DragonBallService {
 
     if (params) {
       httpParams = httpParams.set('limit', params.limit.toString());
+      if(params.page){
+        httpParams = httpParams.set('page',params.page.toString());
+      }
     }
 
     if (params?.gender) {

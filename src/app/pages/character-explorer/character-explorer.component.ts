@@ -1,4 +1,4 @@
-import { Component, computed, ElementRef, inject, signal, viewChild } from '@angular/core';
+import { Component, computed, ElementRef, inject, linkedSignal, signal, viewChild } from '@angular/core';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { CharacterCard } from '@components/character-card/character-card';
 import { CharacterDetailComponent } from '@components/character-detail/character-detail';
@@ -25,15 +25,22 @@ export class CharacterExplorerComponent {
   public genders = signal(genders);
   public races = signal(races);
 
+  // Writable state linked to the filters. Resets to 1 when filters change.
+  public currentPage = linkedSignal<string, number>({
+    source: () => `${this.genderFilter()}-${this.raceFilter()}-${this.searchName()}`,
+    computation: () => 1,
+  });
+
   characterResource = rxResource<
     APIResponse<Character> | Character[],
-    { limit: number; gender: string; race: string; name: string }
+    { limit: number; gender: string; race: string; name: string; page: number }
   >({
     params: () => ({
-      limit: 100,
+      limit: 12,
       gender: this.genderFilter(),
       race: this.raceFilter(),
       name: this.searchName(),
+      page: this.currentPage(),
     }),
 
     stream: ({ params }) => {
@@ -46,10 +53,25 @@ export class CharacterExplorerComponent {
 
   public carousel = viewChild<ElementRef<HTMLDivElement>>('carouselRef');
 
-  public characters = computed(() => {
-    const res = this.characterResource.value();
-    if (!res) return [];
-    return Array.isArray(res) ? res : res.items || [];
+  // Writable state linked to the resource value. Accumulates items across pages.
+  public characters = linkedSignal<APIResponse<Character> | Character[] | undefined, Character[]>({
+    source: () => this.characterResource.value(),
+    computation: (newVal, previous) => {
+      if (!newVal) return [];
+      if (Array.isArray(newVal)) return newVal;
+
+      const newItems = newVal.items || [];
+      const prevItems = previous?.value || [];
+
+      // Reset accumulator if we are back on page 1
+      if (this.currentPage() === 1) {
+        return newItems;
+      }
+
+      const existingIds = new Set(prevItems.map((character) => character.id));
+      const filteredNewItems = newItems.filter((character) => !existingIds.has(character.id));
+      return [...prevItems, ...filteredNewItems];
+    },
   });
 
   public meta = computed(() => {
@@ -91,6 +113,27 @@ export class CharacterExplorerComponent {
         left: direction === 'left' ? -scrollAmount : scrollAmount,
         behavior: 'smooth',
       });
+    }
+  }
+
+  public onScroll(event: Event) {
+    const el = event.target as HTMLDivElement;
+    if (el) {
+      const threshold = 150; // pixels from the right edge
+      const isNearEnd = el.scrollLeft + el.clientWidth >= el.scrollWidth - threshold;
+      if (isNearEnd) {
+        this.loadNextPage();
+      }
+    }
+  }
+
+  public loadNextPage() {
+    if (this.characterResource.isLoading()) return;
+    const metaVal = this.meta();
+    if (!metaVal) return;
+
+    if (this.currentPage() < metaVal.totalPages) {
+      this.currentPage.update((page) => page + 1);
     }
   }
 }

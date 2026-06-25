@@ -57,4 +57,5 @@ export interface CharacterPayload {
   limit: number;
   gender?: string;
   race?: string;
+  page?: number;
 }

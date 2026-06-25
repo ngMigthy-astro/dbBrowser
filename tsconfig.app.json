@@ -10,7 +10,9 @@
       "@data/*": ["./src/app/data/*"],
       "@interfaces/*": ["./src/app/interfaces/*"],
       "@pages/*": ["./src/app/pages/*"],
-      "@services/*": ["./src/app/services/*"]
+      "@services/*": ["./src/app/services/*"],
+      "@env/*":["./src/environments/*"]
+
     },
     "types": ["node"]
   },
