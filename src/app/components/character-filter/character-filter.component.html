@@ -1,103 +1,109 @@
-<div
-  class="mb-2 flex w-full flex-col gap-6 rounded-2xl border border-white/5 bg-slate-900/40 p-4 shadow-[0_8px_32px_rgba(0,0,0,0.37)] backdrop-blur-md md:flex-row md:items-end md:p-6"
->
-  <div class="flex flex-1 flex-col gap-1.5">
-    <label
-      for="search-input"
-      class="flex items-center gap-1.5 text-[10px] font-bold tracking-widest text-slate-400 uppercase"
-    >
-      <svg
-        class="h-3.5 w-3.5 text-orange-500"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2.5"
-          d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-        />
+<div class="w-full bg-slate-900/40 backdrop-blur-md border border-white/5 rounded-2xl p-4 md:p-6 mb-2 flex flex-col md:flex-row md:items-end gap-6 shadow-[0_8px_32px_rgba(0,0,0,0.37)]">
+  
+  <!-- Buscador -->
+  <div class="flex-1 flex flex-col gap-1.5">
+    <label for="search-input" class="text-[10px] font-bold text-slate-400 uppercase tracking-widest flex items-center gap-1.5">
+      <svg class="h-3.5 w-3.5 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
       </svg>
       Buscar Guerrero
     </label>
     <div class="relative">
-      <input
-        id="search-input"
-        type="text"
-        placeholder="Nombre del personaje (ej. Goku, Vegeta...)"
-        [value]="search() || ''"
+      <input 
+        id="search-input" 
+        type="text" 
+        placeholder="Nombre del personaje (ej. Goku, Vegeta...)" 
+        [value]="search() || ''" 
         (input)="search.set($any($event.target).value)"
-        class="w-full rounded-xl border border-white/10 bg-slate-950/40 px-4 py-2.5 text-sm text-white placeholder-slate-500 shadow-inner transition-all duration-300 focus:border-orange-500/50 focus:ring-1 focus:ring-orange-500/50 focus:outline-none"
+        class="w-full rounded-xl border border-white/10 bg-slate-950/40 px-4 py-2.5 text-sm text-white placeholder-slate-500 focus:border-orange-500/50 focus:ring-1 focus:ring-orange-500/50 focus:outline-none transition-all duration-300 shadow-inner" 
       />
     </div>
   </div>
 
-  <div class="flex min-w-45 flex-col gap-1.5">
-    <label
-      for="gender-select"
-      class="flex items-center gap-1.5 text-[10px] font-bold tracking-widest text-slate-400 uppercase"
-    >
-      <span>🚻</span>
-      Género
+  <!-- Filtro de Género Customizado -->
+  <div class="flex flex-col gap-1.5 min-w-[190px] relative">
+    <label class="text-[10px] font-bold text-slate-400 uppercase tracking-widest flex items-center gap-1.5 select-none">
+      <span>🚻</span> Género
     </label>
-    <div class="relative">
-      <select
-        id="gender-select"
-        [value]="gender() || ''"
-        (change)="gender.set($any($event.target).value)"
-        class="w-full cursor-pointer appearance-none rounded-xl border border-white/10 bg-slate-950/40 py-2.5 pr-10 pl-4 text-sm text-slate-300 transition-all duration-300 focus:border-orange-500/50 focus:outline-none"
+    
+    <!-- Botón del Dropdown -->
+    <button 
+      type="button"
+      (click)="isGenderOpen.set(!isGenderOpen()); isRaceOpen.set(false)"
+      class="w-full flex items-center justify-between rounded-xl border border-white/10 bg-slate-950/40 px-4 py-2.5 text-sm text-slate-300 hover:border-orange-500/30 transition-all duration-300 cursor-pointer shadow-md select-none"
+    >
+      <span class="truncate">{{ activeGenderLabel() }}</span>
+      <svg 
+        class="h-4 w-4 text-slate-400 transition-transform duration-300 shrink-0"
+        [class.rotate-180]="isGenderOpen()"
+        fill="none" viewBox="0 0 24 24" stroke="currentColor"
       >
-        @for (g of genders(); track g.value) {
-          <option [value]="g.value" class="bg-slate-950 text-slate-300">{{ g.label }}</option>
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+      </svg>
+    </button>
+
+    <!-- Lista Desplegable Flotante -->
+    @if (isGenderOpen()) {
+      <!-- Backdrop transparente para cerrar el dropdown al hacer click fuera -->
+      <div class="fixed inset-0 z-10 cursor-default" (click)="isGenderOpen.set(false)"></div>
+      
+      <div class="absolute top-[calc(100%+6px)] left-0 w-full rounded-xl border border-white/10 bg-slate-950/95 backdrop-blur-xl p-1.5 shadow-2xl z-20 animate-fade-in space-y-0.5 max-h-60 overflow-y-auto no-scrollbar">
+        @for (gender of genders(); track gender.value) {
+          <button
+            type="button"
+            (click)="selectGender(gender.value)"
+            [class.bg-orange-500/10]="this.gender() === gender.value"
+            [class.text-orange-400]="this.gender() === gender.value"
+            class="w-full text-left px-3.5 py-2 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white transition-all cursor-pointer"
+          >
+            {{ gender.label }}
+          </button>
         }
-      </select>
-      <div
-        class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-slate-400"
-      >
-        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M19 9l-7 7-7-7"
-          />
-        </svg>
       </div>
-    </div>
+    }
   </div>
 
-  <div class="flex min-w-45 flex-col gap-1.5">
-    <label
-      for="race-select"
-      class="flex items-center gap-1.5 text-[10px] font-bold tracking-widest text-slate-400 uppercase"
-    >
-      <span>🧬</span>
-      Raza
+  <!-- Filtro de Raza Customizado -->
+  <div class="flex flex-col gap-1.5 min-w-[190px] relative">
+    <label class="text-[10px] font-bold text-slate-400 uppercase tracking-widest flex items-center gap-1.5 select-none">
+      <span>🧬</span> Raza
     </label>
-    <div class="relative">
-      <select
-        id="race-select"
-        [value]="race() || ''"
-        (change)="race.set($any($event.target).value)"
-        class="w-full cursor-pointer appearance-none rounded-xl border border-white/10 bg-slate-950/40 py-2.5 pr-10 pl-4 text-sm text-slate-300 transition-all duration-300 focus:border-orange-500/50 focus:outline-none"
+    
+    <!-- Botón del Dropdown -->
+    <button 
+      type="button"
+      (click)="isRaceOpen.set(!isRaceOpen()); isGenderOpen.set(false)"
+      class="w-full flex items-center justify-between rounded-xl border border-white/10 bg-slate-950/40 px-4 py-2.5 text-sm text-slate-300 hover:border-orange-500/30 transition-all duration-300 cursor-pointer shadow-md select-none"
+    >
+      <span class="truncate">{{ activeRaceLabel() }}</span>
+      <svg 
+        class="h-4 w-4 text-slate-400 transition-transform duration-300 shrink-0"
+        [class.rotate-180]="isRaceOpen()"
+        fill="none" viewBox="0 0 24 24" stroke="currentColor"
       >
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+      </svg>
+    </button>
+
+    <!-- Lista Desplegable Flotante -->
+    @if (isRaceOpen()) {
+      <!-- Backdrop transparente para cerrar el dropdown al hacer click fuera -->
+      <div class="fixed inset-0 z-10 cursor-default" (click)="isRaceOpen.set(false)"></div>
+      
+      <div class="absolute top-[calc(100%+6px)] left-0 w-full rounded-xl border border-white/10 bg-slate-950/95 backdrop-blur-xl p-1.5 shadow-2xl z-20 animate-fade-in space-y-0.5 max-h-60 overflow-y-auto no-scrollbar">
         @for (race of races(); track race.value) {
-          <option [value]="race.value" class="bg-slate-950 text-slate-300">{{ race.label }}</option>
+          <button
+            type="button"
+            (click)="selectRace(race.value)"
+            [class.bg-orange-500/10]="this.race() === race.value"
+            [class.text-orange-400]="this.race() === race.value"
+            class="w-full text-left px-3.5 py-2 rounded-lg text-sm text-slate-300 hover:bg-slate-800 hover:text-white transition-all cursor-pointer"
+          >
+            {{ race.label }}
+          </button>
         }
-      </select>
-      <div
-        class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-slate-400"
-      >
-        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M19 9l-7 7-7-7"
-          />
-        </svg>
       </div>
-    </div>
+    }
   </div>
+
 </div>

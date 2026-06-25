@@ -2,6 +2,9 @@
   (click)="onCardClick()"
   (mousemove)="onMouseMove($event)"
   (mouseleave)="onMouseLeave($event)"
+  (touchmove)="onTouchMove($event)"
+  (touchend)="onTouchEnd($event)"
+  (touchcancel)="onTouchEnd($event)"
   [attr.data-rarity]="isGalaxyHolo() ? 'rare holo galaxy' : 'rare holo'"
   class="card"
 >

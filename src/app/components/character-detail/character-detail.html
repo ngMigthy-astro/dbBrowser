@@ -41,11 +41,13 @@
         </button>
       }
 
-      <img
-        [src]="activeImage() || character()?.image"
-        [alt]="character()?.name"
-        class="h-64 md:h-80 object-contain drop-shadow-[0_15px_35px_rgba(249,115,22,0.45)] transition-all duration-500 hover:scale-105"
-      />
+      @for (img of [activeImage() || character()?.image]; track img) {
+        <img
+          [src]="img"
+          [alt]="character()?.name"
+          class="h-64 md:h-80 object-contain drop-shadow-[0_15px_35px_rgba(249,115,22,0.45)] hover:scale-105 animate-transform-ki"
+        />
+      }
     </div>
 
     <div class="flex-1 flex flex-col overflow-hidden h-full">
