@@ -30,7 +30,7 @@ export class CharacterExplorerComponent {
     { limit: number; gender: string; race: string; name: string }
   >({
     params: () => ({
-      limit: 50,
+      limit: 100,
       gender: this.genderFilter(),
       race: this.raceFilter(),
       name: this.searchName(),
