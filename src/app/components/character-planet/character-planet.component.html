@@ -1,0 +1,26 @@
+@if (planet()) {
+  <div class="flex flex-col sm:flex-row gap-6 rounded-2xl border border-white/5 bg-slate-950/40 p-6 shadow-md items-start sm:items-center">
+    <img
+      [src]="planet()?.image"
+      [alt]="planet()?.name"
+      class="h-28 w-28 rounded-2xl bg-slate-900/60 object-cover p-2 border border-white/10 shrink-0 shadow-lg"
+    />
+    <div class="flex-1 space-y-2">
+      <div class="flex items-center gap-3">
+        <h5 class="font-black text-white text-xl uppercase tracking-wide">
+          {{ planet()?.name }}
+        </h5>
+        @if (planet()?.isDestroyed) {
+          <span
+            class="rounded-full border border-red-500/20 bg-red-500/10 px-3 py-0.5 text-[9px] font-extrabold tracking-wider text-red-400 uppercase"
+          >
+            Destruido
+          </span>
+        }
+      </div>
+      <p class="text-base text-slate-300 leading-relaxed font-normal">
+        {{ planet()?.description }}
+      </p>
+    </div>
+  </div>
+}

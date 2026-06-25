@@ -1,12 +1,11 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-
+import { Component } from '@angular/core';
+import { CharacterExplorerComponent } from '@pages/character-explorer/character-explorer.component';
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [CharacterExplorerComponent],
   templateUrl: './app.html',
-  styleUrl: './app.css'
+  styleUrl: './app.css',
 })
 export class App {
-  protected readonly title = signal('dragon-ball');
+
 }

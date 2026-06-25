@@ -1,0 +1,30 @@
+# Version control
+.git
+.svn
+.hg
+
+# Dependency directories
+node_modules/
+jspm_packages/
+web_modules/
+
+# Angular & Build outputs
+.angular/
+dist/
+tmp/
+out-tsc/
+bazel-out/
+
+# IDE files
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Files that should not be formatted automatically
+package-lock.json
+pnpm-lock.yaml
+yarn.lock

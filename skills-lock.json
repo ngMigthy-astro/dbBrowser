@@ -1,0 +1,114 @@
+{
+  "version": 1,
+  "skills": {
+    "accessibility": {
+      "source": "addyosmani/web-quality-skills",
+      "sourceType": "github",
+      "skillPath": "skills/accessibility/SKILL.md",
+      "computedHash": "ebfa09617a2ac4fd64afd73267726b787145a8d14294df3f8802b462c91594ab"
+    },
+    "adev-writing-guide": {
+      "source": "angular/angular",
+      "sourceType": "autoskills-registry",
+      "computedHash": "b8933a369cba1517ae21800f9f108cbdb3ca4e7b4eacd850103117ed51039795"
+    },
+    "angular-developer": {
+      "source": "angular/skills",
+      "sourceType": "github",
+      "skillPath": "angular-developer/SKILL.md",
+      "computedHash": "dc0d00affef561cd0181f5e2c38723fe645a1ecef591655d2b03ad95685812c9"
+    },
+    "angular-new-app": {
+      "source": "angular/skills",
+      "sourceType": "github",
+      "skillPath": "angular-new-app/SKILL.md",
+      "computedHash": "d9f712544847ab80ef7ed20043820afd275c394ca05340c2f20a0f051e35d945"
+    },
+    "best-practices": {
+      "source": "addyosmani/web-quality-skills",
+      "sourceType": "github",
+      "skillPath": "skills/best-practices/SKILL.md",
+      "computedHash": "f84707a5ba30771f4c3e672846457e4b0ed4dff5fd268bf0fe6cd17583637671"
+    },
+    "core-web-vitals": {
+      "source": "addyosmani/web-quality-skills",
+      "sourceType": "github",
+      "skillPath": "skills/core-web-vitals/SKILL.md",
+      "computedHash": "4684e264c8e3dd529aefe97c3102814e3b63a9ea21a163d0f835ed506773e3f8"
+    },
+    "frontend-design": {
+      "source": "anthropics/skills",
+      "sourceType": "autoskills-registry",
+      "computedHash": "82fb11a63fb1e35ee2469516ed02d54695f783115b1540c0e783197af4240a3a"
+    },
+    "modern-web-guidance": {
+      "source": "GoogleChrome/modern-web-guidance",
+      "sourceType": "github",
+      "skillPath": "skills/modern-web-guidance/SKILL.md",
+      "computedHash": "e45154bf3ca7d46d059ca1b356d1ec59f1e85315714876fc242f36aabe39658e"
+    },
+    "nodejs-backend-patterns": {
+      "source": "wshobson/agents",
+      "sourceType": "autoskills-registry",
+      "computedHash": "710a5e6f83c46e8f6c43356df55c143a7375c4414559a581654ce51709138c55"
+    },
+    "nodejs-best-practices": {
+      "source": "sickn33/antigravity-awesome-skills",
+      "sourceType": "autoskills-registry",
+      "computedHash": "7361ab02fb6b09913e3bdd9cf61c629ed6c17de9485e6a781054e5d437ccfc29"
+    },
+    "nodejs-express-server": {
+      "source": "aj-geddes/useful-ai-prompts",
+      "sourceType": "autoskills-registry",
+      "computedHash": "b15b3e6dda23d3f3c230285a122de9df3aabae6408dc2bd52038445e60ba745e"
+    },
+    "performance": {
+      "source": "addyosmani/web-quality-skills",
+      "sourceType": "github",
+      "skillPath": "skills/performance/SKILL.md",
+      "computedHash": "646931a3af896ae12a3cad3d762668cb6487fe3ab179daf8fdc974fb79acfe49"
+    },
+    "pr_review": {
+      "source": "angular/angular",
+      "sourceType": "autoskills-registry",
+      "computedHash": "7fe60167662a2a7df0f81af064d22298cffe1a13164f250f75cac8d71a452cfd"
+    },
+    "reference-compiler-cli": {
+      "source": "angular/angular",
+      "sourceType": "autoskills-registry",
+      "computedHash": "69549be6dce5f8439ae946a3041ad428cf6897e98005270fc3ca4aa6cfc4a88e"
+    },
+    "reference-core": {
+      "source": "angular/angular",
+      "sourceType": "autoskills-registry",
+      "computedHash": "c58f7263272eef8b59bccbb62887ac82c57e6eb3cee2b4a8dbc15e3887e12774"
+    },
+    "reference-signal-forms": {
+      "source": "angular/angular",
+      "sourceType": "autoskills-registry",
+      "computedHash": "af28226f655ee620b5ece85e7bcf0950f86542cc77cc316fb699ec998e198475"
+    },
+    "seo": {
+      "source": "addyosmani/web-quality-skills",
+      "sourceType": "github",
+      "skillPath": "skills/seo/SKILL.md",
+      "computedHash": "3d72168e266b759454b3e16028e7306ec716f21de6878cac7e98a0a3834ab5db"
+    },
+    "tailwind-css-patterns": {
+      "source": "giuseppe-trisciuoglio/developer-kit",
+      "sourceType": "autoskills-registry",
+      "computedHash": "8fd534b64b3f305ade80c207e2f9ba4338d5e409e355af9f724c36764b6709c1"
+    },
+    "typescript-advanced-types": {
+      "source": "wshobson/agents",
+      "sourceType": "autoskills-registry",
+      "computedHash": "5ca0e177c6aaaba1889255691224daafdb7d71f317cc70bede1590d3907ded42"
+    },
+    "web-quality-audit": {
+      "source": "addyosmani/web-quality-skills",
+      "sourceType": "github",
+      "skillPath": "skills/web-quality-audit/SKILL.md",
+      "computedHash": "10db799d6bff4fc98a4067aa04fdee2e9f34eaca1c42fd4207a89aafe644a6f0"
+    }
+  }
+}

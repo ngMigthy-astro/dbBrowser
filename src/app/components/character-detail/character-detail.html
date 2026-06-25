@@ -1,0 +1,172 @@
+@if (characterResource.isLoading()) {
+  <!-- Overlay Oscuro para el Loading -->
+  <div class="fixed inset-0 bg-slate-950/60 backdrop-blur-xs z-50 flex items-center justify-center p-4">
+    <div class="flex flex-col items-center justify-center text-center p-8">
+      <div
+        class="h-16 w-16 animate-spin rounded-full border-4 border-orange-500 border-t-transparent shadow-[0_0_15px_rgba(249,115,22,0.5)]"
+      ></div>
+      <p class="mt-4 animate-pulse text-sm font-semibold tracking-wider text-orange-400 uppercase">
+        Cargando Ki del Guerrero...
+      </p>
+    </div>
+  </div>
+}
+
+@if (characterResource.value()) {
+  <!-- Fondo Oscuro Overlay Interactivo (Detrás del Modal) -->
+  <div 
+    (click)="closePanel.emit()"
+    class="fixed inset-0 bg-slate-950/85 backdrop-blur-sm z-50 cursor-pointer transition-opacity duration-300 animate-fade-in">
+  </div>
+
+  <!-- Contenedor del Modal Flotante Centrado -->
+  <div
+    class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-5xl h-[90vh] md:h-[80vh] z-50 flex flex-col md:flex-row bg-slate-900/95 border border-white/10 rounded-3xl shadow-[0_25px_60px_rgba(0,0,0,0.7)] backdrop-blur-xl overflow-hidden transition-all duration-300 animate-scale-up"
+  >
+    
+    <!-- LADO IZQUIERDO: Visualizador de Imagen / Fase Activa -->
+    <div class="relative md:w-[40%] bg-linear-to-b from-orange-500/15 via-orange-500/5 to-transparent flex flex-col items-center justify-center p-8 border-b md:border-b-0 md:border-r border-white/5 shrink-0 min-h-[280px] md:min-h-0">
+      
+      <!-- Label flotante de Fase -->
+      <span class="absolute top-4 left-4 text-[9px] font-black uppercase tracking-widest text-orange-400 bg-orange-500/10 border border-orange-500/20 px-2.5 py-1 rounded-md">
+        @if (activeImage() === character()?.image) {
+          Fase Base
+        } @else {
+          Fase Transformada
+        }
+      </span>
+
+      <!-- Botón de Restablecer si está transformado -->
+      @if (activeImage() !== character()?.image) {
+        <button 
+          (click)="activeImage.set(character()?.image ?? '')"
+          class="absolute top-4 right-4 text-[9px] font-black uppercase tracking-widest text-slate-300 bg-slate-800/80 border border-white/10 hover:border-orange-500/30 hover:bg-slate-700 px-2 py-1 rounded-md transition-all duration-300 cursor-pointer"
+        >
+          Revertir Fase
+        </button>
+      }
+
+      <img
+        [src]="activeImage() || character()?.image"
+        [alt]="character()?.name"
+        class="h-64 md:h-80 object-contain drop-shadow-[0_15px_35px_rgba(249,115,22,0.45)] transition-all duration-500 hover:scale-105"
+      />
+    </div>
+
+    <!-- LADO DERECHO: Información Detallada con Scroll Independiente -->
+    <div class="flex-1 flex flex-col overflow-hidden h-full">
+      
+      <!-- Cabecera del Detalle (Fija) -->
+      <div class="p-6 border-b border-white/5 flex items-center justify-between shrink-0">
+        <div>
+          <span class="text-[9px] font-black uppercase tracking-widest text-slate-500">Expediente Oficial</span>
+          <h2 class="text-2xl font-black text-white uppercase tracking-wide">
+            {{ character()?.name }}
+          </h2>
+        </div>
+        <button
+          (click)="closePanel.emit()"
+          class="rounded-full border border-white/10 bg-slate-950/60 p-2 text-slate-400 hover:bg-slate-800 hover:text-white hover:border-orange-500/50 hover:scale-105 transition-all duration-300 cursor-pointer shadow-md"
+          aria-label="Cerrar detalles"
+        >
+          <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Cuerpo del Detalle con Scroll -->
+      <div class="flex-1 overflow-y-auto p-6 md:p-8 space-y-6 no-scrollbar">
+        
+        <!-- Metadata Rápida -->
+        <div class="flex flex-wrap gap-2">
+          <span class="px-3 py-1 rounded-lg text-xs font-bold bg-orange-500/10 border border-orange-500/25 text-orange-400 uppercase tracking-wider">
+            Raza: {{ character()?.race }}
+          </span>
+          <span class="px-3 py-1 rounded-lg text-xs font-bold bg-blue-500/10 border border-blue-500/25 text-blue-400 uppercase tracking-wider">
+            Afiliación: {{ character()?.affiliation }}
+          </span>
+        </div>
+
+        <!-- Biografía / Descripción -->
+        <div class="space-y-2">
+          <h4 class="text-[10px] font-black tracking-widest text-slate-500 uppercase">Biografía</h4>
+          <p class="text-base text-slate-200 leading-relaxed font-normal bg-slate-950/40 rounded-2xl p-5 border border-white/5 shadow-inner">
+            {{ character()?.description }}
+          </p>
+        </div>
+
+        <!-- Planeta de Origen -->
+        <div class="space-y-3">
+          <h4 class="text-[10px] font-black tracking-widest text-slate-500 uppercase">Planeta de Origen</h4>
+          @if (planet()) {
+            <div class="flex flex-col sm:flex-row gap-6 rounded-2xl border border-white/5 bg-slate-950/40 p-6 shadow-md items-start sm:items-center">
+              <img
+                [src]="planet()?.image"
+                [alt]="planet()?.name"
+                class="h-28 w-28 rounded-2xl bg-slate-900/60 object-cover p-2 border border-white/10 shrink-0 shadow-lg"
+              />
+              <div class="flex-1 space-y-2">
+                <div class="flex items-center gap-3">
+                  <h5 class="font-black text-white text-xl uppercase tracking-wide">
+                    {{ planet()?.name }}
+                  </h5>
+                  @if (planet()?.isDestroyed) {
+                    <span
+                      class="rounded-full border border-red-500/20 bg-red-500/10 px-3 py-0.5 text-[9px] font-extrabold tracking-wider text-red-400 uppercase"
+                    >
+                      Destruido
+                    </span>
+                  }
+                </div>
+                <p class="text-base text-slate-300 leading-relaxed font-normal">
+                  {{ planet()?.description }}
+                </p>
+              </div>
+            </div>
+          }
+        </div>
+
+        <!-- Transformaciones Clickables -->
+        <div class="space-y-4 pt-2">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+            <h4 class="text-[10px] font-black tracking-widest text-slate-500 uppercase">Transformaciones Disponibles</h4>
+            <span class="text-[9px] font-bold text-orange-400 animate-pulse uppercase tracking-wider">👉 Haz clic en una fase para transformarlo</span>
+          </div>
+
+          <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+            @for (transformation of transformations(); track transformation.id) {
+              <div
+                (click)="activeImage.set(transformation.image)"
+                [class.ring-2]="activeImage() === transformation.image"
+                [class.ring-orange-500]="activeImage() === transformation.image"
+                class="flex flex-col items-center rounded-2xl border border-white/5 bg-slate-950/30 hover:bg-slate-950/60 p-4 text-center transition-all duration-300 hover:border-orange-500/30 cursor-pointer active:scale-95 group shadow-sm hover:-translate-y-0.5"
+              >
+                <div class="h-28 w-full flex items-center justify-center mb-3 overflow-hidden">
+                  <img
+                    [src]="transformation.image"
+                    [alt]="transformation.name"
+                    class="h-full object-contain transition-transform duration-300 group-hover:scale-110 filter drop-shadow-[0_6px_10px_rgba(249,115,22,0.15)] group-hover:drop-shadow-[0_8px_18px_rgba(249,115,22,0.35)]"
+                  />
+                </div>
+                <h5 class="text-sm font-bold text-white line-clamp-1 group-hover:text-orange-400 transition-colors duration-300">
+                  {{ transformation.name }}
+                </h5>
+                <p class="mt-1 text-xs font-black text-orange-400">
+                  Ki: {{ transformation.ki }}
+                </p>
+              </div>
+            } @empty {
+              <div class="col-span-full py-8 text-center text-xs text-slate-500 border border-dashed border-white/5 rounded-xl">
+                Este guerrero no posee transformaciones registradas.
+              </div>
+            }
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+}
