@@ -59,10 +59,6 @@ export class CharacterCard {
   }
 
   public onTouchMove(event: TouchEvent) {
-    if(event.cancelable){
-      event.preventDefault()
-    }
-
     const card = event.currentTarget as HTMLElement;
     const rect = card.getBoundingClientRect();
 
@@ -90,8 +86,8 @@ export class CharacterCard {
   }
 
   public onTouchEnd(event: TouchEvent) {
-   const card = event.currentTarget as HTMLElement;
-   this.resetCardStyles(card);
+    const card = event.currentTarget as HTMLElement;
+    this.resetCardStyles(card);
   }
 
   private resetCardStyles(card: HTMLElement) {

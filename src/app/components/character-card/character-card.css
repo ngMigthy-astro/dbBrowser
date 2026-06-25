@@ -36,6 +36,7 @@
   will-change: transform, visibility;
   transform-style: preserve-3d;
   transition: z-index 0.3s ease;
+  touch-action: pan-x;
 }
 
 .card.interacting {
