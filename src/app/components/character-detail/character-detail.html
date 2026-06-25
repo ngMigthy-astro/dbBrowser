@@ -1,6 +1,6 @@
 @if (characterResource.isLoading()) {
   <!-- Overlay Oscuro para el Loading -->
-  <div class="fixed inset-0 bg-slate-950/60 backdrop-blur-xs z-50 flex items-center justify-center p-4">
+  <div class="fixed inset-0 bg-slate-950/60 backdrop-blur-xs z-[300] flex items-center justify-center p-4">
     <div class="flex flex-col items-center justify-center text-center p-8">
       <div
         class="h-16 w-16 animate-spin rounded-full border-4 border-orange-500 border-t-transparent shadow-[0_0_15px_rgba(249,115,22,0.5)]"
@@ -15,11 +15,11 @@
 @if (characterResource.value()) {
   <button
     (click)="closePanel.emit()"
-    class="fixed inset-0 bg-slate-950/85 backdrop-blur-sm z-50 cursor-pointer transition-opacity duration-300 animate-fade-in">
+    class="fixed inset-0 bg-slate-950/85 backdrop-blur-sm z-[300] cursor-pointer transition-opacity duration-300 animate-fade-in">
   </button>
 
   <div
-    class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-5xl h-[90vh] md:h-[80vh] z-50 flex flex-col md:flex-row bg-slate-900/95 border border-white/10 rounded-3xl shadow-[0_25px_60px_rgba(0,0,0,0.7)] backdrop-blur-xl overflow-hidden transition-all duration-300 animate-scale-up"
+    class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-5xl h-[90vh] md:h-[80vh] z-[300] flex flex-col md:flex-row bg-slate-900/95 border border-white/10 rounded-3xl shadow-[0_25px_60px_rgba(0,0,0,0.7)] backdrop-blur-xl overflow-hidden transition-all duration-300 animate-scale-up"
   >
 
     <div class="relative md:w-[40%] bg-linear-to-b from-orange-500/15 via-orange-500/5 to-transparent flex flex-col items-center justify-center p-8 border-b md:border-b-0 md:border-r border-white/5 shrink-0 min-h-70 md:min-h-0">
