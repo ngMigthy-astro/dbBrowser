@@ -1,6 +1,5 @@
-<div class="w-full relative z-[200] bg-slate-900/40 backdrop-blur-md border border-white/5 rounded-2xl p-4 md:p-6 mb-2 flex flex-col md:flex-row md:items-end gap-6 shadow-[0_8px_32px_rgba(0,0,0,0.37)]">
+<div class="w-full relative z-200 bg-slate-900/40 backdrop-blur-md border border-white/5 rounded-2xl p-4 md:p-6 mb-2 flex flex-col md:flex-row md:items-end gap-6 shadow-[0_8px_32px_rgba(0,0,0,0.37)]">
 
-  <!-- Buscador -->
   <div class="flex-1 flex flex-col gap-1.5">
     <label for="search-input" class="text-[10px] font-bold text-slate-400 uppercase tracking-widest flex items-center gap-1.5">
       <svg class="h-3.5 w-3.5 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -20,13 +19,11 @@
     </div>
   </div>
 
-  <!-- Filtro de Género Customizado -->
   <div class="flex flex-col gap-1.5 min-w-47.5] relative">
     <label class="text-[10px] font-bold text-slate-400 uppercase tracking-widest flex items-center gap-1.5 select-none" for="" id="" name="" aria-label="Genero">
       <span>🚻</span> Género
     </label>
 
-    <!-- Botón del Dropdown -->
     <button
       type="button"
       (click)="isGenderOpen.set(!isGenderOpen()); isRaceOpen.set(false)"
@@ -61,13 +58,11 @@
     }
   </div>
 
-  <!-- Filtro de Raza Customizado -->
   <div class="flex flex-col gap-1.5 min-w-47.5 relative">
     <label class="text-[10px] font-bold text-slate-400 uppercase tracking-widest flex items-center gap-1.5 select-none" for="" id="" name="" aria-label="Raza">
       <span>🧬</span> Raza
     </label>
 
-    <!-- Botón del Dropdown -->
     <button
       type="button"
       (click)="isRaceOpen.set(!isRaceOpen()); isGenderOpen.set(false)"

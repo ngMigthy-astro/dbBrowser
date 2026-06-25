@@ -59,6 +59,10 @@ export class CharacterCard {
   }
 
   public onTouchMove(event: TouchEvent) {
+    if(event.cancelable){
+      event.preventDefault()
+    }
+
     const card = event.currentTarget as HTMLElement;
     const rect = card.getBoundingClientRect();
 
