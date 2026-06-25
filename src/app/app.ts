@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { Router } from '@angular/router';
 import { CharacterExplorerComponent } from '@pages/character-explorer/character-explorer.component';
 @Component({
   selector: 'app-root',
@@ -7,5 +8,9 @@ import { CharacterExplorerComponent } from '@pages/character-explorer/character-
   styleUrl: './app.css',
 })
 export class App {
+  private readonly route = inject(Router);
 
+  public goToHome(){
+    this.route.navigate(['/'])
+  }
 }

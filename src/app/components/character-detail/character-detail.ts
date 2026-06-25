@@ -3,10 +3,12 @@ import { DragonBallService } from '@services/dragonball.service';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { of } from 'rxjs';
 import { CharacterDetail } from '@interfaces/dragonball.interface';
+import { CharacterPlanetComponent } from "@components/character-planet/character-planet.component";
+import { CharacterTransformationsComponent } from "@components/character-transformations/character-transformations.component";
 
 @Component({
   selector: 'app-character-detail',
-  imports: [],
+  imports: [CharacterPlanetComponent, CharacterTransformationsComponent],
   templateUrl: './character-detail.html',
   styleUrl: './character-detail.css',
 })
