@@ -22,7 +22,7 @@
     class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-5xl h-[90vh] md:h-[80vh] z-[300] flex flex-col md:flex-row bg-slate-900/95 border border-white/10 rounded-3xl shadow-[0_25px_60px_rgba(0,0,0,0.7)] backdrop-blur-xl overflow-hidden transition-all duration-300 animate-scale-up"
   >
 
-    <div class="relative md:w-[40%] bg-linear-to-b from-orange-500/15 via-orange-500/5 to-transparent flex flex-col items-center justify-center p-8 border-b md:border-b-0 md:border-r border-white/5 shrink-0 min-h-70 md:min-h-0">
+    <div class="relative md:w-[40%] bg-linear-to-b from-orange-500/15 via-orange-500/5 to-transparent flex flex-col items-center justify-center p-8 border-b md:border-b-0 md:border-r border-white/5 shrink-0 min-h-70 md:min-h-0 overflow-hidden">
 
       <span class="absolute top-4 left-4 text-[9px] font-black uppercase tracking-widest text-orange-400 bg-orange-500/10 border border-orange-500/20 px-2.5 py-1 rounded-md">
         @if (activeImage() === character()?.image) {
@@ -42,11 +42,20 @@
       }
 
       @for (img of [activeImage() || character()?.image]; track img) {
-        <img
-          [src]="img"
-          [alt]="character()?.name"
-          class="h-64 md:h-80 object-contain drop-shadow-[0_15px_35px_rgba(249,115,22,0.45)] hover:scale-105 animate-transform-ki"
-        />
+        <div class="relative flex items-center justify-center h-64 md:h-80 w-full">
+          <!-- Destello de energía dorada/naranja (Onda de choque) -->
+          <div class="absolute h-36 w-36 rounded-full bg-radial from-amber-400/90 via-orange-500/75 to-transparent opacity-0 mix-blend-color-dodge animate-ki-explosion pointer-events-none z-20"></div>
+          
+          <!-- Flash de luz blanca instantánea -->
+          <div class="absolute inset-0 bg-white rounded-2xl opacity-0 animate-ki-flash pointer-events-none z-30"></div>
+
+          <!-- Imagen del guerrero -->
+          <img
+            [src]="img"
+            [alt]="character()?.name"
+            class="h-full w-full object-contain drop-shadow-[0_15px_35px_rgba(249,115,22,0.45)] hover:scale-105 animate-transform-ki z-10"
+          />
+        </div>
       }
     </div>
 
