@@ -25,7 +25,6 @@ export class CharacterExplorerComponent {
   public genders = signal(genders);
   public races = signal(races);
 
-  // Writable state linked to the filters. Resets to 1 when filters change.
   public currentPage = linkedSignal<string, number>({
     source: () => `${this.genderFilter()}-${this.raceFilter()}-${this.searchName()}`,
     computation: () => 1,
@@ -36,7 +35,7 @@ export class CharacterExplorerComponent {
     { limit: number; gender: string; race: string; name: string; page: number }
   >({
     params: () => ({
-      limit: 12,
+      limit: 50,
       gender: this.genderFilter(),
       race: this.raceFilter(),
       name: this.searchName(),
@@ -53,7 +52,6 @@ export class CharacterExplorerComponent {
 
   public carousel = viewChild<ElementRef<HTMLDivElement>>('carouselRef');
 
-  // Writable state linked to the resource value. Accumulates items across pages.
   public characters = linkedSignal<APIResponse<Character> | Character[] | undefined, Character[]>({
     source: () => this.characterResource.value(),
     computation: (newVal, previous) => {
@@ -63,7 +61,6 @@ export class CharacterExplorerComponent {
       const newItems = newVal.items || [];
       const prevItems = previous?.value || [];
 
-      // Reset accumulator if we are back on page 1
       if (this.currentPage() === 1) {
         return newItems;
       }
@@ -119,7 +116,7 @@ export class CharacterExplorerComponent {
   public onScroll(event: Event) {
     const el = event.target as HTMLDivElement;
     if (el) {
-      const threshold = 150; // pixels from the right edge
+      const threshold = 150;
       const isNearEnd = el.scrollLeft + el.clientWidth >= el.scrollWidth - threshold;
       if (isNearEnd) {
         this.loadNextPage();
