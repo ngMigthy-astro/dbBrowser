@@ -1,4 +1,3 @@
-<!-- Componente de Filtros Premium -->
 <app-character-filter
   [(search)]="searchName"
   [(gender)]="genderFilter"
@@ -11,10 +10,8 @@
   <h2 class="text-sm font-bold uppercase tracking-widest text-slate-400">Guerreros Disponibles</h2>
 </div>
 
-<!-- Carrusel de Guerreros con Desplazamiento Flotante -->
 <div class="relative w-full group">
-  
-  <!-- Botón Scroll Izquierda -->
+
   <button (click)="scroll('left')"
     class="absolute left-4 top-1/2 -translate-y-1/2 z-10 flex h-11 w-11 items-center justify-center rounded-full bg-slate-950/70 text-orange-500 border border-white/10 hover:border-orange-500/50 hover:bg-slate-900 transition-all duration-300 backdrop-blur-md opacity-0 group-hover:opacity-100 shadow-[0_0_15px_rgba(0,0,0,0.5)] cursor-pointer">
     <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -52,9 +49,8 @@
     </div>
     }
 
-    <!-- Loading next page card -->
     @if (characterResource.isLoading() && currentPage() > 1) {
-    <div class="snap-center snap-always shrink-0 flex items-center justify-center w-[200px] bg-slate-900/40 border border-white/5 rounded-2xl">
+    <div class="snap-center snap-always shrink-0 flex items-center justify-center w-50 bg-slate-900/40 border border-white/5 rounded-2xl">
       <div class="flex flex-col items-center gap-3">
         <div class="h-8 w-8 animate-spin rounded-full border-2 border-orange-500 border-t-transparent shadow-[0_0_10px_rgba(249,115,22,0.3)]"></div>
         <span class="text-xs text-orange-400 font-semibold uppercase tracking-wider animate-pulse">Reuniendo Ki...</span>
@@ -64,7 +60,6 @@
   </div>
   }
 
-  <!-- Botón Scroll Derecha -->
   <button (click)="scroll('right')"
     class="absolute right-4 top-1/2 -translate-y-1/2 z-10 flex h-11 w-11 items-center justify-center rounded-full bg-slate-950/70 text-orange-500 border border-white/10 hover:border-orange-500/50 hover:bg-slate-900 transition-all duration-300 backdrop-blur-md opacity-0 group-hover:opacity-100 shadow-[0_0_15px_rgba(0,0,0,0.5)] cursor-pointer">
     <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">

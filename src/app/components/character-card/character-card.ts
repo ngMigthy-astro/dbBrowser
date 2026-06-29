@@ -1,4 +1,4 @@
-import { Component, computed, input, output } from '@angular/core';
+import { Component, computed, ElementRef, inject, input, NgZone, output, viewChild, effect } from '@angular/core';
 import { Character } from '../../interfaces/dragonball.interface';
 
 @Component({
@@ -8,8 +8,40 @@ import { Character } from '../../interfaces/dragonball.interface';
   styleUrl: './character-card.css',
 })
 export class CharacterCard {
+  private readonly zone = inject(NgZone);
+  
   public readonly character = input.required<Character>();
   public readonly selected = output<Character>();
+  
+  public readonly cardBtn = viewChild<ElementRef<HTMLButtonElement>>('cardBtn');
+
+  constructor() {
+    effect((onCleanup) => {
+      const btnEl = this.cardBtn()?.nativeElement;
+      if (!btnEl) return;
+
+      const mouseMoveHandler = (event: MouseEvent) => this.onMouseMove(event);
+      const mouseLeaveHandler = (event: MouseEvent) => this.onMouseLeave(event);
+      const touchMoveHandler = (event: TouchEvent) => this.onTouchMove(event);
+      const touchEndHandler = (event: TouchEvent) => this.onTouchEnd(event);
+
+      this.zone.runOutsideAngular(() => {
+        btnEl.addEventListener('mousemove', mouseMoveHandler);
+        btnEl.addEventListener('mouseleave', mouseLeaveHandler);
+        btnEl.addEventListener('touchmove', touchMoveHandler);
+        btnEl.addEventListener('touchend', touchEndHandler);
+        btnEl.addEventListener('touchcancel', touchEndHandler);
+      });
+
+      onCleanup(() => {
+        btnEl.removeEventListener('mousemove', mouseMoveHandler);
+        btnEl.removeEventListener('mouseleave', mouseLeaveHandler);
+        btnEl.removeEventListener('touchmove', touchMoveHandler);
+        btnEl.removeEventListener('touchend', touchEndHandler);
+        btnEl.removeEventListener('touchcancel', touchEndHandler);
+      });
+    });
+  }
 
   public readonly isGalaxyHolo = computed(() => {
     const ki = this.character().ki || '';
