@@ -1,0 +1,16 @@
+@keyframes loading-progress {
+  0% { left: -30%; width: 30%; }
+  50% { left: 100%; width: 30%; }
+  100% { left: -30%; width: 30%; }
+}
+
+.loading-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #f97316, #ea580c);
+  box-shadow: 0 0 8px #f97316;
+  animation: loading-progress 1.5s infinite ease-in-out;
+  border-radius: 2px;
+}
